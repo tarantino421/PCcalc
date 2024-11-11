@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wat calculator</title>
+    <link rel="stylesheet" href="css/style.min.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="calculator">
+        <main class="calc__body">
+          <div class="body__title">
+            <h2>Choose your components</h2>
+            <button class="btn__reset">Reset</button>
+          </div>
+          <div class="body__content">
+            <div class="component">
+              <h3>CPU</h3>
+              <div class="component__content">
+                <div class="basis">
+                  <label>Brand</label>
+                  <select name="cpu-brand">
+                    <option value="">Select</option>
+                    <option value="intel">Intel</option>
+                    <option value="amd">AMD</option>
+                  </select>
+                </div>
+                <div class="basis">
+                  <label>Socket</label>
+                  <select name="cpu-socket">
+                    <option value="">Select</option>
+                  </select>
+                </div>
+                <div class="basis">
+                  <label>Model</label>
+                  <select name="cpu-model">
+                    <option value="">Select</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="component">
+              <h3>GPU</h3>
+              <div class="component__content">
+                <div class="basis">
+                  <label>Brand</label>
+                  <select name="gpu-brand">
+                    <option value="">Select</option>
+                    <option value="nvidia">Nvidia</option>
+                    <option value="amd">AMD</option>
+                  </select>
+                </div>
+                <div class="basis">
+                  <label>Graphic card</label>
+                  <select name="gpu-graphic-card">
+                    <option value="">Select</option>
+                  </select>
+                </div>
+                <div class="basis">
+                  <label>Quantity</label>
+                  <select name="gpu-quantity">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <aside class="calc__result">
+          <h2>Your recommended PSU wattage is</h2>
+          <div class="carc__result-value">
+            <span id="total-watts" class="value">0</span> WATTS
+          </div>
+        </aside>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
