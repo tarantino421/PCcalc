@@ -63,10 +63,9 @@ const gpuData = {
 class Component {
   constructor(type, data) {
     this.type = type; // CPU, GPU, etc.
-    this.data = data; // Об'єкт з даними про сокети, моделі тощо
+    this.data = data; 
   }
 
-  // Метод для отримання сокетів/інших параметрів на основі бренду
   getOptionsByBrand(brand) {
     return this.data[brand];
   }
@@ -80,7 +79,7 @@ class CPU extends Component {
     return this.data[brand].sockets;
   }
   getModelsBySocket(brand, socket) {
-    return this.data[brand].models[socket].map((item) => item.model); // Повертаємо тільки моделі без ват
+    return this.data[brand].models[socket].map((item) => item.model); 
   }
 }
 
@@ -89,12 +88,12 @@ class GPU extends Component {
     super("GPU", data);
   }
   getModelsByBrand(brand) {
-    return this.data[brand].cards.map((item) => item.model); // Повертаємо тільки моделі без ват
+    return this.data[brand].cards.map((item) => item.model); 
   }
 }
 
 //======================================================================================================
-// Загальний клас для обробки вибору компонентів
+// клас для обробки вибору компонентів
 //======================================================================================================
 
 class ComponentSelector {
@@ -110,32 +109,24 @@ class ComponentSelector {
     );
   }
 
-  // Обробка зміни бренду
+
   handleBrandChange() {
     const selectedBrand = this.brandSelect.value;
-    // Очищаємо попередні опції
     this.optionSelect.innerHTML = '<option value="">Select</option>';
-
-    // Викликаємо метод для отримання опцій на основі вибраного бренду
     const options = this.getOptionsMethod(selectedBrand);
-    // Оновлюємо список опцій
     options.forEach((option) => {
       this.optionSelect.innerHTML += `<option value="${option}">${option}</option>`;
     });
   }
 }
 
-// Reset button functionality
-const resetButton = document.querySelector(".btn__reset");
 
+const resetButton = document.querySelector(".btn__reset");
 resetButton.addEventListener("click", function () {
-  // Reset all select elements
   const selects = document.querySelectorAll("select");
   selects.forEach((select) => {
     select.selectedIndex = 0; // Reset to the first option
   });
-
-  // Recalculate the total watts after reset
   updateTotalWatts();
 });
 
@@ -163,8 +154,7 @@ const cpuSelector = new ComponentSelector(
 
 const gpuBrandSelect = document.querySelector('select[name="gpu-brand"]');
 const gpuCardSelect = document.querySelector('select[name="gpu-graphic-card"]');
-const gpuQuantitySelect = document.querySelector('select[name="gpu-quantity"]'); // Додаємо вибір кількості GPU
-
+const gpuQuantitySelect = document.querySelector('select[name="gpu-quantity"]');
 const gpuSelector = new ComponentSelector(
   gpuBrandSelect,
   gpuCardSelect,
@@ -191,26 +181,22 @@ socketSelect.addEventListener("change", function () {
     });
   }
 });
-// Змінні для вибору брендів
 const brandSelectCpu = document.querySelector('select[name="cpu-brand"]');
 const brandSelectGpu = document.querySelector('select[name="gpu-brand"]');
 
 //======================================================================================================
 // Лічильник ват
 //======================================================================================================
-
-// Змінна для загальної потужності
 let totalWatts = 0;
 
-// Дані компонентів
 const components = {
   cpu: {
     data: cpuData,
     select: document.querySelector('select[name="cpu-model"]'),
-    brandSelect: brandSelectCpu, // Зберігаємо вибір бренду для CPU
+    brandSelect: brandSelectCpu,
     update: function () {
       const selectedCpuModel = this.select.value;
-      const selectedBrand = this.brandSelect.value; // Отримуємо вибраний бренд для CPU
+      const selectedBrand = this.brandSelect.value;
 
       if (selectedCpuModel && selectedBrand) {
         const selectedCpu = this.data[selectedBrand].models[
@@ -224,25 +210,25 @@ const components = {
   gpu: {
     data: gpuData,
     select: document.querySelector('select[name="gpu-graphic-card"]'),
-    brandSelect: brandSelectGpu, // Зберігаємо вибір бренду для GPU
-    quantitySelect: gpuQuantitySelect, // Вибір кількості GPU
+    brandSelect: brandSelectGpu, 
+    quantitySelect: gpuQuantitySelect,
     update: function () {
       const selectedGpuModel = this.select.value;
       const selectedBrand = this.brandSelect.value;
-      const selectedQuantity = parseInt(this.quantitySelect.value) || 1; // Отримуємо кількість або 1 за замовчуванням
+      const selectedQuantity = parseInt(this.quantitySelect.value) || 1; 
 
       if (selectedGpuModel && selectedBrand) {
         const selectedGpu = this.data[selectedBrand].cards.find(
           (item) => item.model === selectedGpuModel
         );
-        return selectedGpu ? selectedGpu.watts * selectedQuantity : 0; // Множимо на кількість
+        return selectedGpu ? selectedGpu.watts * selectedQuantity : 0;
       }
       return 0;
     },
   },
 };
 
-// Оновлення загальної потужності
+
 function updateTotalWatts() {
   totalWatts = 0;
 
@@ -253,7 +239,6 @@ function updateTotalWatts() {
   document.querySelector("#total-watts").textContent = ` ${totalWatts}`;
 }
 
-// Слухачі подій для компонентів
 components.cpu.select.addEventListener("change", updateTotalWatts);
 components.gpu.select.addEventListener("change", updateTotalWatts);
-components.gpu.quantitySelect.addEventListener("change", updateTotalWatts); // Додаємо слухач для кількості GPU
+components.gpu.quantitySelect.addEventListener("change", updateTotalWatts); 
