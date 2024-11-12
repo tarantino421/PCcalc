@@ -57,8 +57,8 @@ const gpuData = {
 };
 
 const motherboardData = {
-  ATX: { watts: 70 },
-  "Micro ATX": { watts: 60 },
+  ATX: { watts: 50 },
+  "Micro ATX": { watts: 40 },
   "Mini-ITX": { watts: 30 },
   "Thin Mini-ITX": { watts: 25 },
   "SSI CEB": { watts: 60 },
@@ -66,39 +66,22 @@ const motherboardData = {
 };
 
 const ramData = {
-  "2GB DDR3": { watts: 1 },
-  "4GB DDR3": { watts: 2 },
-  "8GB DDR3": { watts: 3 },
-  "32GB DDR3": { watts: 6 },
-  "4GB DDR4": { watts: 1 },
+  "2GB DDR3": { watts: 3 },
+  "4GB DDR3": { watts: 4 },
+  "8GB DDR3": { watts: 5 },
+  "32GB DDR3": { watts: 10 },
+  "4GB DDR4": { watts: 3 },
   "8GB DDR4": { watts: 4 },
-  "16GB DDR4": { watts: 6 },
-  "32GB DDR4": { watts: 12 },
+  "16GB DDR4": { watts: 5 },
+  "32GB DDR4": { watts: 10 },
 };
 
 const ssdData = {
-  "not installed": { watts: 0 },
   "128GB": { watts: 5 },
   "512GB": { watts: 6 },
   "1TB": { watts: 7 },
   "2TB": { watts: 8 },
   "4TB": { watts: 9 },
-};
-
-const hddData = {
-  "not installed": { watts: 0 },
-  "500GB": { watts: 7 },
-  "1TB": { watts: 8 },
-  "2TB": { watts: 9 },
-  "4TB": { watts: 10 },
-  "8TB": { watts: 11 },
-};
-
-const opticalDriveData = {
-  "not installed": { watts: 0 },
-  CD: { watts: 15 },
-  DVD: { watts: 20 },
-  BluRay: { watts: 30 },
 };
 
 //======================================================================================================
@@ -160,44 +143,12 @@ class RAM extends Component {
 
 class SSD {
   constructor(data) {
-    this.data = data; // Містить SSD дані з вашої бази
+    this.data = data; // База даних SSD
   }
 
-  getWattsBySize(size, quantity = 1) {
-    const ssd = this.data[size];
-    if (ssd) {
-      return ssd.watts * quantity;
-    }
-    return 0;
-  }
-}
-
-// Створення класу HDD
-class HDD {
-  constructor(data) {
-    this.data = data; // Містить HDD дані з вашої бази
-  }
-
-  getWattsBySize(size, quantity = 1) {
-    const hdd = this.data[size];
-    if (hdd) {
-      return hdd.watts * quantity;
-    }
-    return 0;
-  }
-}
-
-class OpticalDrive {
-  constructor(data) {
-    this.data = data; // Містить дані про оптичні приводи
-  }
-
-  getWattsByType(type) {
-    const opticalDrive = this.data[type];
-    if (opticalDrive) {
-      return opticalDrive.watts;
-    }
-    return 0;
+  // Метод для отримання потужності по моделі SSD
+  getWattsByModel(model) {
+    return this.data[model] ? this.data[model].watts : 0;
   }
 }
 
@@ -249,8 +200,6 @@ const gpu = new GPU(gpuData);
 const motherboard = new Motherboard(motherboardData);
 const ram = new RAM(ramData);
 const ssd = new SSD(ssdData);
-const hdd = new HDD(hddData);
-const opticalDrive = new OpticalDrive(opticalDriveData);
 
 //======================================================================================================
 // Створення екземплярів для CPU та GPU
@@ -288,15 +237,8 @@ const ramMemoryModuleSelect = document.querySelector(
 );
 const ramQuantitySelect = document.querySelector('select[name="RAM-quantity"]');
 
-const ssdModelSelect = document.querySelector('select[name="ssd-model"]');
+const ssdModelSelect = document.querySelector('select[name="ssd-size"]');
 const ssdQuantitySelect = document.querySelector('select[name="SSD-quantity"]');
-
-const hddModelSelect = document.querySelector('select[name="hdd-model"]');
-const hddQuantitySelect = document.querySelector('select[name="HDD-quantity"]');
-
-const opticalDriveSelect = document.querySelector(
-  'select[name="optical-drive-type"]'
-);
 
 //======================================================================================================
 // Обробка вибору сокета для CPU
@@ -348,7 +290,21 @@ const components = {
     select: ramMemoryModuleSelect,
     quantitySelect: ramQuantitySelect,
     update: function () {
-      return updateComponentWatts(this, this.select, null, this.quantitySelect); // Використовуємо null для brandSelect
+      const selectedModel = this.select.value;
+      const selectedQuantity = parseInt(this.quantitySelect.value) || 1;
+
+      return ram.getWattsByModel(selectedModel) * selectedQuantity;
+    },
+  },
+  ssd: {
+    data: ssdData,
+    select: ssdModelSelect,
+    quantitySelect: ssdQuantitySelect,
+    update: function () {
+      const selectedModel = this.select.value;
+      const selectedQuantity = parseInt(this.quantitySelect.value) || 1;
+
+      return ssd.getWattsByModel(selectedModel) * selectedQuantity;
     },
   },
 };
@@ -373,34 +329,25 @@ function updateComponentWatts(
   quantitySelect
 ) {
   const selectedModel = selectedElement.value;
-  const selectedBrand = brandSelect ? brandSelect.value : null; // Додаємо перевірку, якщо немає бренду
+  const selectedBrand = brandSelect.value;
   const selectedQuantity = quantitySelect
     ? parseInt(quantitySelect.value) || 1
     : 1;
 
-  if (selectedModel) {
-    if (selectedBrand) {
-      // Для CPU та GPU
-      const selectedItem = component.data[selectedBrand].cards
-        ? component.data[selectedBrand].cards.find(
-            (item) => item.model === selectedModel
-          )
-        : component.data[selectedBrand].models[socketSelect.value].find(
-            (item) => item.model === selectedModel
-          );
-      return selectedItem ? selectedItem.watts * selectedQuantity : 0;
-    } else {
-      // Для RAM
-      const ramWatts = component.data[selectedModel]
-        ? component.data[selectedModel].watts * selectedQuantity
-        : 0;
-
-      return ramWatts;
-    }
+  if (selectedModel && selectedBrand) {
+    const selectedItem = component.data[selectedBrand].cards
+      ? component.data[selectedBrand].cards.find(
+          (item) => item.model === selectedModel
+        )
+      : component.data[selectedBrand].models[socketSelect.value].find(
+          (item) => item.model === selectedModel
+        );
+    return selectedItem ? selectedItem.watts * selectedQuantity : 0;
   }
   return 0;
 }
 
+// Оновлення загальної потужності
 function updateTotalWatts() {
   totalWatts = 0;
   for (const component in components) {
@@ -409,20 +356,6 @@ function updateTotalWatts() {
   totalWatts += motherboard.getWattsByFormFactor(
     motherboardFormFactorSelect.value
   );
-
-  // Оновлюємо потужність SSD
-  const ssdSize = ssdModelSelect.value;
-  const ssdQuantity = parseInt(ssdQuantitySelect.value) || 1;
-  totalWatts += ssd.getWattsBySize(ssdSize, ssdQuantity);
-
-  // Оновлюємо потужність HDD
-  const hddSize = hddModelSelect.value;
-  const hddQuantity = parseInt(hddQuantitySelect.value) || 1;
-  totalWatts += hdd.getWattsBySize(hddSize, hddQuantity);
-
-  const opticalDriveType = opticalDriveSelect.value;
-  totalWatts += opticalDrive.getWattsByType(opticalDriveType);
-
   document.querySelector("#total-watts").textContent = ` ${totalWatts}`;
 }
 
@@ -433,16 +366,11 @@ const setEventListeners = () => {
   components.gpu.select.addEventListener("change", updateTotalWatts);
   components.gpu.quantitySelect.addEventListener("change", updateTotalWatts);
 
-  components.ram.select.addEventListener("change", updateTotalWatts);
-  components.ram.quantitySelect.addEventListener("change", updateTotalWatts);
+  ramMemoryModuleSelect.addEventListener("change", updateTotalWatts);
+  ramQuantitySelect.addEventListener("change", updateTotalWatts);
 
   ssdModelSelect.addEventListener("change", updateTotalWatts);
   ssdQuantitySelect.addEventListener("change", updateTotalWatts);
-
-  hddModelSelect.addEventListener("change", updateTotalWatts);
-  hddQuantitySelect.addEventListener("change", updateTotalWatts);
-
-  opticalDriveSelect.addEventListener("change", updateTotalWatts);
 };
 
 setEventListeners();
