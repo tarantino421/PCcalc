@@ -108,10 +108,10 @@ const opticalDriveData = {
 class Component {
   constructor(type, data) {
     this.type = type; // CPU, GPU, etc.
-    this.data = data; // Об'єкт з даними про сокети, моделі тощо
+    this.data = data; 
   }
 
-  // Метод для отримання сокетів/інших параметрів на основі бренду
+
   getOptionsByBrand(brand) {
     return this.data[brand];
   }
@@ -125,7 +125,7 @@ class CPU extends Component {
     return this.data[brand].sockets;
   }
   getModelsBySocket(brand, socket) {
-    return this.data[brand].models[socket].map((item) => item.model); // Повертаємо тільки моделі без ват
+    return this.data[brand].models[socket].map((item) => item.model); 
   }
 }
 
@@ -134,7 +134,7 @@ class GPU extends Component {
     super("GPU", data);
   }
   getModelsByBrand(brand) {
-    return this.data[brand].cards.map((item) => item.model); // Повертаємо тільки моделі без ват
+    return this.data[brand].cards.map((item) => item.model); 
   }
 }
 
@@ -160,7 +160,7 @@ class RAM extends Component {
 
 class SSD {
   constructor(data) {
-    this.data = data; // Містить SSD дані з вашої бази
+    this.data = data; 
   }
 
   getWattsBySize(size, quantity = 1) {
@@ -175,7 +175,7 @@ class SSD {
 // Створення класу HDD
 class HDD {
   constructor(data) {
-    this.data = data; // Містить HDD дані з вашої бази
+    this.data = data; 
   }
 
   getWattsBySize(size, quantity = 1) {
@@ -189,7 +189,7 @@ class HDD {
 
 class OpticalDrive {
   constructor(data) {
-    this.data = data; // Містить дані про оптичні приводи
+    this.data = data;
   }
 
   getWattsByType(type) {
@@ -228,7 +228,7 @@ class ComponentSelector {
   }
 }
 
-// Reset button functionality
+
 const resetButton = document.querySelector(".btn__reset");
 
 resetButton.addEventListener("click", function () {
@@ -348,12 +348,12 @@ const components = {
     select: ramMemoryModuleSelect,
     quantitySelect: ramQuantitySelect,
     update: function () {
-      return updateComponentWatts(this, this.select, null, this.quantitySelect); // Використовуємо null для brandSelect
+      return updateComponentWatts(this, this.select, null, this.quantitySelect); 
     },
   },
 };
 
-// Метод для заповнення елементів select
+
 function populateSelectOptions(selectElement, options) {
   const fragment = document.createDocumentFragment();
   options.forEach((option) => {
@@ -365,7 +365,6 @@ function populateSelectOptions(selectElement, options) {
   selectElement.appendChild(fragment);
 }
 
-// Загальна функція для оновлення потужності компонента
 function updateComponentWatts(
   component,
   selectedElement,
@@ -373,7 +372,7 @@ function updateComponentWatts(
   quantitySelect
 ) {
   const selectedModel = selectedElement.value;
-  const selectedBrand = brandSelect ? brandSelect.value : null; // Додаємо перевірку, якщо немає бренду
+  const selectedBrand = brandSelect ? brandSelect.value : null;
   const selectedQuantity = quantitySelect
     ? parseInt(quantitySelect.value) || 1
     : 1;
@@ -426,7 +425,7 @@ function updateTotalWatts() {
   document.querySelector("#total-watts").textContent = ` ${totalWatts}`;
 }
 
-// Слухачі подій для компонентів
+
 const setEventListeners = () => {
   components.cpu.select.addEventListener("change", updateTotalWatts);
 
