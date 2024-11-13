@@ -1,9 +1,10 @@
-@import url(https://fonts.googleapis.com/css?family=Red+Hat+Display:regular,500,600,700,800);
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Rubik:regular,500,700,900);
 * {
   font-weight: 400;
   color: #1d4862;
   font-size: 1.125rem;
-  font-family: "Red Hat Display";
+  font-family: "Rubik";
 }
 
 *,
@@ -64,7 +65,9 @@ h6 {
 }
 
 .wrapper {
-  padding: 4rem;
+  margin: auto;
+  padding: 1rem 0;
+  max-width: 71.25rem;
 }
 
 .calculator {
@@ -75,28 +78,64 @@ h6 {
   width: 60%;
   background-color: #eef9ff;
   border-radius: 2rem;
-  padding: 3rem;
+  padding: 2rem;
 }
 .calculator .calc__body .body__title {
   justify-content: space-between;
   align-items: center;
   display: flex;
   font-weight: 600;
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  margin-bottom: 3rem;
+}
+.calculator .calc__body .body__title .btn__reset {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  background-color: #bedcef;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.calculator .calc__body .body__title .btn__reset:hover {
+  filter: brightness(90%);
+}
+.calculator .calc__body .body__title .btn__reset img {
+  width: 1rem;
+  height: 1rem;
 }
 .calculator .calc__body .body__content {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+}
+.calculator .calc__body .body__content .psu-button {
+  margin-top: 2rem;
+  background-color: #081923;
+  color: #ffffff;
+  padding: 0.75rem;
+  transition: 0.5s;
+  border-radius: 0.25rem;
+}
+.calculator .calc__body .body__content .psu-button:hover {
+  background-color: #1baa48;
 }
 .calculator .calc__body .body__content .component {
+  padding: 0 1.5rem 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+}
+.calculator .calc__body .body__content .component:not(:last-child) {
+  border-bottom: 1px solid #bedcef;
+}
+.calculator .calc__body .body__content .component:not(:first-child) {
+  padding-top: 1.5rem;
 }
 .calculator .calc__body .body__content .component h3 {
   font-weight: 500;
+  font-size: 1.25rem;
 }
 .calculator .calc__body .body__content .component .component__content {
   display: flex;
@@ -107,16 +146,35 @@ h6 {
   display: flex;
   width: 100%;
   flex-direction: column;
+  gap: 0.5rem;
 }
 .calculator .calc__body .body__content .component .component__content .basis > * {
   font-size: 1rem;
 }
 .calculator .calc__body .body__content .component .component__content .basis select {
-  border-radius: 3rem;
-  padding: 0.25rem 0.75rem;
-  background-color: #acdaf6;
+  border-radius: 0.25rem;
+  transition: 0.2s;
+  padding: 0.5rem 0.75rem;
+  color: #426072;
+  font-size: 1rem;
+  width: 100%; /* Додаємо ширину для кращої адаптивності */
+  -webkit-appearance: none; /* для Safari */
+  -moz-appearance: none; /* для Firefox */
+  appearance: none; /* для сучасних браузерів */
+  padding-right: 30px; /* Робимо більше місце для кастомної стрілки */
+  background: url("/images/arrow-down.png") no-repeat calc(100% - 1rem);
+  background-color: #bedcef;
+  background-size: 14px 14px; /* Налаштовуємо розмір стрілки */
 }
-.calculator .calc__body .body__content .component .component__content .basis select option {
+.calculator .calc__body .body__content .component .component__content .basis select:hover {
+  filter: brightness(90%);
+}
+.calculator .calc__body .body__content .component .component__content .basis select:focus {
+  outline: none; /* Прибираємо стандартне підсвічування */
+}
+.calculator .calc__body .body__content .component .component__content .basis option {
+  border: none !important;
+  outline: none !important;
   font-size: 0.75rem !important;
 }
 .calculator .calc__result {
@@ -133,10 +191,30 @@ h6 {
   flex-direction: column;
   width: 40%;
   height: 100%;
-  padding: 3rem 0;
-  gap: 2rem;
+  padding: 2rem 1rem;
+  gap: 0.5rem;
+}
+.calculator .calc__result .psu-field {
+  width: 100%;
+  text-align: left;
+  color: #ffffff;
+}
+.calculator .calc__result .psu-field .psu-title {
+  padding-top: 1rem;
+  border-top: 1px solid #ffffff;
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.calculator .calc__result .psu-field .psu-model {
+  margin: 0.25rem 0;
+  font-size: 1rem;
+  color: #ffffff;
 }
 .calculator .calc__result h2 {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
   color: #ffffff;
 }
 .calculator .calc__result .carc__result-value {

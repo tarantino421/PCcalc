@@ -12,7 +12,10 @@
         <main class="calc__body">
           <div class="body__title">
             <h2>Choose your components</h2>
-            <button class="btn__reset">Reset</button>
+            <div class="btn__reset">
+              <img src="/images/reset.png" alt="" />
+              <button>Reset</button>
+            </div>
           </div>
           <div class="body__content">
             <div class="component">
@@ -184,13 +187,15 @@
                 </div>
               </div>
             </div>
+            <button class="psu-button">Get PSU Recommendation</button>
           </div>
         </main>
         <aside class="calc__result">
-          <h2>Your recommended PSU wattage is</h2>
+          <h2>Your PC wattage is</h2>
           <div class="carc__result-value">
             <span id="total-watts" class="value">0</span> WATTS
           </div>
+          <div class="psu-field"></div>
         </aside>
       </div>
     </div>

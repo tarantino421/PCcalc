@@ -101,16 +101,84 @@ const opticalDriveData = {
   BluRay: { watts: 30 },
 };
 
+const psuDatabase = {
+  400: [
+    { model: "Seasonic S12III 400W" },
+    { model: "Cooler Master Elite 400W" },
+    { model: "EVGA 400 N1 (400W)" },
+  ],
+  500: [
+    { model: "Corsair CV550 550W" },
+    { model: "Cooler Master MWE 500W" },
+    { model: "Seasonic S12III 500W" },
+  ],
+  600: [
+    { model: "EVGA 600 W1 600W" },
+    { model: "Cooler Master MWE 600W" },
+    { model: "Corsair CV650 650W" },
+  ],
+  700: [
+    { model: "Seasonic S12III 700W" },
+    { model: "Cooler Master MWE 700W" },
+    { model: "EVGA 700 BQ 700W" },
+  ],
+  800: [
+    { model: "Corsair RM850x 850W" },
+    { model: "EVGA 800 GQ 800W" },
+    { model: "Seasonic Focus GX-850 850W" },
+    { model: "Cooler Master V850 850W" },
+  ],
+  1000: [
+    { model: "Seasonic Focus GX-1000 1000W" },
+    { model: "Corsair RM1000x 1000W" },
+    { model: "Cooler Master V1000 1000W" },
+  ],
+  1200: [
+    { model: "EVGA SuperNOVA 1200 G3 1200W" },
+    { model: "Corsair HX1200i 1200W" },
+    { model: "Seasonic Prime Ultra 1200W" },
+  ],
+  1500: [
+    { model: "Cooler Master V1500 1500W" },
+    { model: "EVGA SuperNOVA 1500 G2 1500W" },
+    { model: "Corsair AX1500i 1500W" },
+  ],
+  1600: [
+    { model: "Seasonic Prime 1600W" },
+    { model: "Corsair AX1600i 1600W" },
+    { model: "EVGA SuperNOVA 1600 G2 1600W" },
+  ],
+  1800: [
+    { model: "Cooler Master V1800 1800W" },
+    { model: "Corsair AX1800i 1800W" },
+    { model: "EVGA SuperNOVA 1800 G2 1800W" },
+  ],
+  2000: [
+    { model: "Seasonic Prime Ultra 2000W" },
+    { model: "Cooler Master V2000 2000W" },
+    { model: "EVGA SuperNOVA 2000 G2 2000W" },
+  ],
+  2200: [
+    { model: "Corsair AX2200i 2200W" },
+    { model: "Seasonic Prime Ultra 2200W" },
+    { model: "Cooler Master V2200 2200W" },
+  ],
+  2500: [
+    { model: "EVGA SuperNOVA 2500 G2 2500W" },
+    { model: "Seasonic Prime Ultra 2500W" },
+    { model: "Cooler Master V2500 2500W" },
+  ],
+};
+
 //======================================================================================================
 // ООП для компонентів
 //======================================================================================================
 
 class Component {
   constructor(type, data) {
-    this.type = type; // CPU, GPU, etc.
-    this.data = data; 
+    this.type = type;
+    this.data = data;
   }
-
 
   getOptionsByBrand(brand) {
     return this.data[brand];
@@ -125,7 +193,7 @@ class CPU extends Component {
     return this.data[brand].sockets;
   }
   getModelsBySocket(brand, socket) {
-    return this.data[brand].models[socket].map((item) => item.model); 
+    return this.data[brand].models[socket].map((item) => item.model);
   }
 }
 
@@ -134,7 +202,7 @@ class GPU extends Component {
     super("GPU", data);
   }
   getModelsByBrand(brand) {
-    return this.data[brand].cards.map((item) => item.model); 
+    return this.data[brand].cards.map((item) => item.model);
   }
 }
 
@@ -160,7 +228,7 @@ class RAM extends Component {
 
 class SSD {
   constructor(data) {
-    this.data = data; 
+    this.data = data;
   }
 
   getWattsBySize(size, quantity = 1) {
@@ -172,10 +240,9 @@ class SSD {
   }
 }
 
-// Створення класу HDD
 class HDD {
   constructor(data) {
-    this.data = data; 
+    this.data = data;
   }
 
   getWattsBySize(size, quantity = 1) {
@@ -228,6 +295,8 @@ class ComponentSelector {
   }
 }
 
+// Reset button functionality
+const psuField = document.querySelector(".psu-field");
 
 const resetButton = document.querySelector(".btn__reset");
 
@@ -238,6 +307,7 @@ resetButton.addEventListener("click", function () {
   });
 
   updateTotalWatts();
+  psuField.innerHTML = "";
 });
 
 //======================================================================================================
@@ -309,7 +379,6 @@ socketSelect.addEventListener("change", function () {
   populateSelectOptions(modelSelect, models);
 });
 
-// Змінні для вибору брендів
 const brandSelectCpu = document.querySelector('select[name="cpu-brand"]');
 const brandSelectGpu = document.querySelector('select[name="gpu-brand"]');
 
@@ -319,7 +388,6 @@ const brandSelectGpu = document.querySelector('select[name="gpu-brand"]');
 
 let totalWatts = 0;
 
-// Дані компонентів
 const components = {
   cpu: {
     data: cpuData,
@@ -348,11 +416,10 @@ const components = {
     select: ramMemoryModuleSelect,
     quantitySelect: ramQuantitySelect,
     update: function () {
-      return updateComponentWatts(this, this.select, null, this.quantitySelect); 
+      return updateComponentWatts(this, this.select, null, this.quantitySelect); // Використовуємо null для brandSelect
     },
   },
 };
-
 
 function populateSelectOptions(selectElement, options) {
   const fragment = document.createDocumentFragment();
@@ -364,7 +431,6 @@ function populateSelectOptions(selectElement, options) {
   });
   selectElement.appendChild(fragment);
 }
-
 function updateComponentWatts(
   component,
   selectedElement,
@@ -379,7 +445,6 @@ function updateComponentWatts(
 
   if (selectedModel) {
     if (selectedBrand) {
-      // Для CPU та GPU
       const selectedItem = component.data[selectedBrand].cards
         ? component.data[selectedBrand].cards.find(
             (item) => item.model === selectedModel
@@ -389,7 +454,6 @@ function updateComponentWatts(
           );
       return selectedItem ? selectedItem.watts * selectedQuantity : 0;
     } else {
-      // Для RAM
       const ramWatts = component.data[selectedModel]
         ? component.data[selectedModel].watts * selectedQuantity
         : 0;
@@ -400,8 +464,30 @@ function updateComponentWatts(
   return 0;
 }
 
+function animateWattsChange(startValue, endValue, duration = 500) {
+  const startTime = performance.now();
+
+  function updateWatts(currentTime) {
+    const elapsedTime = currentTime - startTime;
+    const progress = Math.min(elapsedTime / duration, 1);
+    const displayedWatts = Math.floor(
+      startValue + (endValue - startValue) * progress
+    );
+
+    document.querySelector("#total-watts").textContent = ` ${displayedWatts}`;
+
+    if (progress < 1) {
+      requestAnimationFrame(updateWatts);
+    }
+  }
+
+  requestAnimationFrame(updateWatts);
+}
+
 function updateTotalWatts() {
+  const previousTotal = totalWatts;
   totalWatts = 0;
+
   for (const component in components) {
     totalWatts += components[component].update();
   }
@@ -409,12 +495,10 @@ function updateTotalWatts() {
     motherboardFormFactorSelect.value
   );
 
-  // Оновлюємо потужність SSD
   const ssdSize = ssdModelSelect.value;
   const ssdQuantity = parseInt(ssdQuantitySelect.value) || 1;
   totalWatts += ssd.getWattsBySize(ssdSize, ssdQuantity);
 
-  // Оновлюємо потужність HDD
   const hddSize = hddModelSelect.value;
   const hddQuantity = parseInt(hddQuantitySelect.value) || 1;
   totalWatts += hdd.getWattsBySize(hddSize, hddQuantity);
@@ -422,9 +506,8 @@ function updateTotalWatts() {
   const opticalDriveType = opticalDriveSelect.value;
   totalWatts += opticalDrive.getWattsByType(opticalDriveType);
 
-  document.querySelector("#total-watts").textContent = ` ${totalWatts}`;
+  animateWattsChange(previousTotal, totalWatts);
 }
-
 
 const setEventListeners = () => {
   components.cpu.select.addEventListener("change", updateTotalWatts);
@@ -445,3 +528,47 @@ const setEventListeners = () => {
 };
 
 setEventListeners();
+
+function getPSURecommendation(totalWatts) {
+  const requiredWatts = totalWatts * 1.2;
+  let recommendedPSU = [];
+
+  for (let watts in psuDatabase) {
+    if (watts >= requiredWatts) {
+      recommendedPSU = psuDatabase[watts];
+      break;
+    }
+  }
+
+  return recommendedPSU;
+}
+
+function displayPSURecommendation() {
+  const totalWatts =
+    parseInt(document.querySelector("#total-watts").textContent) || 0;
+
+  if (totalWatts > 0) {
+    const psuRecommendations = getPSURecommendation(totalWatts);
+
+    psuField.innerHTML = "";
+    const psuTitle = document.createElement("div");
+    psuTitle.textContent = "Your recommended power supply";
+    psuTitle.classList.add("psu-title");
+    psuField.appendChild(psuTitle);
+
+    if (psuRecommendations.length > 0) {
+      psuRecommendations.forEach((psu) => {
+        const psuElement = document.createElement("div");
+        psuElement.textContent = psu.model;
+        psuElement.classList.add("psu-model");
+        psuField.appendChild(psuElement);
+      });
+    } else {
+      psuTitle.textContent = "No PSU recommendations available.";
+    }
+  }
+}
+
+document
+  .querySelector(".psu-button")
+  .addEventListener("click", displayPSURecommendation);
