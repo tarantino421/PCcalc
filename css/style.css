@@ -66,13 +66,13 @@ h6 {
 
 .wrapper {
   margin: auto;
-  padding: 1rem 0;
   max-width: 71.25rem;
+  position: relative;
 }
 
 .calculator {
   display: flex;
-  gap: 3rem;
+  gap: 1rem;
 }
 .calculator .calc__body {
   width: 60%;
@@ -85,6 +85,7 @@ h6 {
   align-items: center;
   display: flex;
   font-weight: 600;
+  gap: 1rem;
   font-size: 1.75rem;
   margin-bottom: 3rem;
 }
@@ -118,7 +119,7 @@ h6 {
   border-radius: 0.25rem;
 }
 .calculator .calc__body .body__content .psu-button:hover {
-  background-color: #1baa48;
+  background-color: #112a38;
 }
 .calculator .calc__body .body__content .component {
   padding: 0 1.5rem 0;
@@ -147,6 +148,9 @@ h6 {
   width: 100%;
   flex-direction: column;
   gap: 0.5rem;
+}
+.calculator .calc__body .body__content .component .component__content .basis.quantity {
+  width: 4rem;
 }
 .calculator .calc__body .body__content .component .component__content .basis > * {
   font-size: 1rem;
@@ -217,7 +221,7 @@ h6 {
   letter-spacing: 0.5px;
   color: #ffffff;
 }
-.calculator .calc__result .carc__result-value {
+.calculator .calc__result .calc__result-value {
   font-size: 4rem;
   font-weight: 700;
   color: #ffffff;
@@ -226,4 +230,99 @@ h6 {
   font-size: 4rem;
   font-weight: 700;
   color: #ffffff;
+}
+
+@media only screen and (max-width: 1024px) {
+  .calculator {
+    flex-direction: column;
+    padding: 0rem;
+    padding-bottom: 9rem;
+  }
+  .calculator .calc__body {
+    border-radius: 0px !important;
+    width: 100%;
+    padding: 1rem;
+  }
+  .calculator .calc__body .component {
+    padding: 0 0rem 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 1.5rem !important;
+  }
+  .calculator .calc__body .component:not(:last-child) {
+    border-bottom: 1px solid #bedcef;
+  }
+  .calculator .calc__body .component:not(:first-child) {
+    padding-top: 1.5rem !important;
+  }
+  .calculator .calc__body .component h3 {
+    font-weight: 500;
+    font-size: 1.25rem;
+  }
+  .calculator .calc__body .component .component__content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .calculator .calc__body .component .component__content .basis {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .calculator .calc__body .component .component__content .basis.quantity {
+    width: 4rem;
+  }
+  .calculator .calc__body .component .component__content .basis > * {
+    font-size: 1rem;
+  }
+  .calculator .calc__body .component .component__content .basis select {
+    border-radius: 0.25rem;
+    transition: 0.2s;
+    padding: 0.5rem 0.75rem;
+    color: #426072;
+    font-size: 1rem;
+    width: 100%; /* Додаємо ширину для кращої адаптивності */
+    -webkit-appearance: none; /* для Safari */
+    -moz-appearance: none; /* для Firefox */
+    appearance: none; /* для сучасних браузерів */
+    padding-right: 30px; /* Робимо більше місце для кастомної стрілки */
+    background: url("/images/arrow-down.png") no-repeat calc(100% - 1rem);
+    background-color: #bedcef;
+    background-size: 14px 14px; /* Налаштовуємо розмір стрілки */
+  }
+  .calculator .calc__body .component .component__content .basis select:hover {
+    filter: brightness(90%);
+  }
+  .calculator .calc__body .component .component__content .basis select:focus {
+    outline: none; /* Прибираємо стандартне підсвічування */
+  }
+  .calculator .calc__body .component .component__content .basis option {
+    border: none !important;
+    outline: none !important;
+    font-size: 0.75rem !important;
+  }
+  .calculator .calc__body .body__title {
+    line-height: 100%;
+    flex-direction: column;
+    align-items: start;
+  }
+  .calculator .calc__result {
+    position: fixed;
+    top: calc(100% - 8.5rem);
+    left: 0.5rem;
+    width: calc(100% - 1rem);
+    height: 8rem;
+    border-radius: 2rem;
+    background-color: #081923;
+    gap: 0.5rem;
+  }
+  .calculator .calc__result .calc__result-value {
+    font-size: 3rem;
+  }
+  .calculator .calc__result .value {
+    font-size: 3rem;
+  }
 }
