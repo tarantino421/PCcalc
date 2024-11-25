@@ -8,197 +8,332 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="calculator">
-        <main class="calc__body">
-          <div class="body__title">
-            <h2>Choose your components</h2>
-            <div class="btn__reset">
-              <img src="./images/reset.png" alt="" />
-              <button>Reset</button>
+      <header class="header _shell">
+        <div class="header__content">
+          <div class="logo">LOGO</div>
+          <div class="menu-btn">
+            <!-- <img class="cross-img" src="./images/cross.png" alt="" />
+            <img class="menu-igm" src="./images/menu.png" alt="" /> -->
+            <span class="line"></span><span class="line"></span
+            ><span class="line"></span>
+          </div>
+          <div class="menu">
+            <a href="">Home</a>
+            <a href="">Build Your PC</a>
+            <a href="">Calculate Watts</a>
+            <a href="">Contact</a>
+          </div>
+        </div>
+      </header>
+      <main class="main _shell">
+        <section class="calc__info">
+          <h1>POWER SUPPLY CALCULATOR</h1>
+          <p>
+            Our Power Supply Calculator is a user-friendly tool designed to help
+            you determine the ideal power supply wattage for your PC. By
+            entering the specifications of your components—such as the
+            processor, graphics card, RAM, storage devices, cooling solutions,
+            and peripherals—the calculator precisely estimates the required
+            wattage to ensure optimal performance and reliability. <br />
+            This tool is perfect for Building custom PCs on a budget, Avoiding
+            underpowered or overpowered setups, Ensuring long-term safety and
+            energy efficiency. Whether you're a gamer, professional, or casual
+            user, our Power Supply Calculator simplifies your PC building
+            process, making sure you get the best power solution tailored to
+            your needs.
+          </p>
+        </section>
+        <div class="calculator">
+          <div class="calc__body">
+            <div class="body__title">
+              <h2>Choose your components</h2>
+              <div class="btn__reset">
+                <button>Reset</button>
+              </div>
+            </div>
+            <div class="body__content">
+              <div class="component">
+                <h3>CPU</h3>
+                <div class="component__content">
+                  <div class="basis">
+                    <label></label>
+                    <select name="cpu-brand">
+                      <option value="">Brand</option>
+                      <option value="intel">Intel</option>
+                      <option value="amd">AMD</option>
+                    </select>
+                  </div>
+                  <div class="basis">
+                    <label></label>
+                    <select name="cpu-socket">
+                      <option value="">Socket</option>
+                    </select>
+                  </div>
+                  <div class="basis">
+                    <label></label>
+                    <select name="cpu-model">
+                      <option value="">Model</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="component">
+                <h3>GPU</h3>
+                <div class="component__content">
+                  <div class="basis">
+                    <label></label>
+                    <select name="gpu-brand">
+                      <option value="">Brand</option>
+                      <option value="nvidia">Nvidia</option>
+                      <option value="amd">AMD</option>
+                    </select>
+                  </div>
+                  <div class="basis">
+                    <label></label>
+                    <select name="gpu-graphic-card">
+                      <option value="">Model</option>
+                    </select>
+                  </div>
+                  <div class="quantity basis">
+                    <label></label>
+                    <select name="gpu-quantity">
+                      <option value="">Quantity</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="component">
+                <h3>Motherboard</h3>
+                <div class="component__content">
+                  <div class="basis">
+                    <label></label>
+                    <select name="motherboard-form-factor">
+                      <option value="">Form Factor</option>
+                      <option value="ATX">ATX</option>
+                      <option value="Micro ATX">Micro ATX</option>
+                      <option value="Mini-ITX">Mini-ITX</option>
+                      <option value="Thin Mini-ITX">Thin Mini-ITX</option>
+                      <option value="SSI CEB">SSI CEB</option>
+                      <option value="SSI EEB">SSI EEB</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="component">
+                <h3>RAM</h3>
+                <div class="component__content">
+                  <div class="basis">
+                    <label></label>
+                    <select name="ram-memory-module">
+                      <option value="">Memory module</option>
+                      <option value="2GB DDR3">2GB DDR3</option>
+                      <option value="4GB DDR3">4GB DDR3</option>
+                      <option value="8GB DDR3">8GB DDR3</option>
+                      <option value="32GB DDR3">32GB DDR3</option>
+                      <option value="4GB DDR4">4GB DDR4</option>
+                      <option value="8GB DDR4">8GB DDR4</option>
+                      <option value="16GB DDR4">16GB DDR4</option>
+                      <option value="32GB DDR4">32GB DDR4</option>
+                    </select>
+                  </div>
+                  <div class="quantity basis">
+                    <label></label>
+                    <select name="RAM-quantity">
+                      <option value="">Quantity</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="component">
+                <h3>SSD</h3>
+                <div class="component__content">
+                  <div class="basis">
+                    <label></label>
+                    <select name="ssd-model">
+                      <option value="">Size</option>
+                      <option value="0">Not installed</option>
+                      <option value="128GB">128GB</option>
+                      <option value="512GB">512GB</option>
+                      <option value="1TB">1TB</option>
+                      <option value="2TB">2TB</option>
+                      <option value="4TB">4TB</option>
+                    </select>
+                  </div>
+                  <div class="quantity basis">
+                    <label></label>
+                    <select name="SSD-quantity">
+                      <option value="0">Quantity</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="component">
+                <h3>HDD</h3>
+                <div class="component__content">
+                  <div class="basis">
+                    <label></label>
+                    <select name="hdd-model">
+                      <option value="">Capacity</option>
+                      <option value="0">Not installed</option>
+                      <option value="500GB">500GB</option>
+                      <option value="1TB">1TB</option>
+                      <option value="2TB">2TB</option>
+                      <option value="4TB">4TB</option>
+                      <option value="8TB">8TB</option>
+                    </select>
+                  </div>
+                  <div class="quantity basis">
+                    <label></label>
+                    <select name="HDD-quantity">
+                      <option value="">Quantity</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="component">
+                <h3>Optical Drive</h3>
+                <div class="component__content">
+                  <div class="basis">
+                    <label></label>
+                    <select name="optical-drive-type">
+                      <option value="">Type</option>
+                      <option value="not installed">Not installed</option>
+                      <option value="CD">CD</option>
+                      <option value="DVD">DVD</option>
+                      <option value="BluRay">BluRay</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!-- <button class="psu-button">Get PSU Recommendation</button> -->
+              <!-- <div class="psu-field"></div> -->
             </div>
           </div>
-          <div class="body__content">
-            <div class="component">
-              <h3>CPU</h3>
-              <div class="component__content">
-                <div class="basis">
-                  <label>Brand</label>
-                  <select name="cpu-brand">
-                    <option value="">Select</option>
-                    <option value="intel">Intel</option>
-                    <option value="amd">AMD</option>
-                  </select>
+          <aside>
+            <div class="calc__result">
+              <h2>Your PC wattage is</h2>
+              <div class="calc__result-value">
+                <span id="total-watts" class="value">0</span> WATTS
+              </div>
+            </div>
+            <div class="top__picks">
+              <h4>Our Top Picks</h4>
+              <div class="item">
+                <div class="image">
+                  <img src="/images/1.png" alt="" />
                 </div>
-                <div class="basis">
-                  <label>Socket</label>
-                  <select name="cpu-socket">
-                    <option value="">Select</option>
-                  </select>
+                <div class="container">
+                  <div class="name">
+                    RM1200x Shift with Premium Sleeved Type-5 Pro Cables Kit -
+                    Black
+                  </div>
+                  <div class="row">
+                    <div class="row__text">Price:</div>
+                    <div class="row__text">Rs: 51,482.49</div>
+                  </div>
+                  <div class="row">
+                    <div class="row__text">Availability:</div>
+                    <div class="row__text">In Stock</div>
+                  </div>
+                  <a href="#">View</a>
                 </div>
-                <div class="basis">
-                  <label>Model</label>
-                  <select name="cpu-model">
-                    <option value="">Select</option>
-                  </select>
+              </div>
+              <div class="item">
+                <div class="image">
+                  <img src="/images/1.png" alt="" />
+                </div>
+                <div class="container">
+                  <div class="name">
+                    RM1200x Shift with Premium Sleeved Type-5 Pro Cables Kit -
+                    Black
+                  </div>
+                  <div class="row">
+                    <div class="row__text">Price:</div>
+                    <div class="row__text">Rs: 51,482.49</div>
+                  </div>
+                  <div class="row">
+                    <div class="row__text">Availability:</div>
+                    <div class="row__text">In Stock</div>
+                  </div>
+                  <a href="#">View</a>
+                </div>
+              </div>
+              <div class="item">
+                <div class="image">
+                  <img src="/images/1.png" alt="" />
+                </div>
+                <div class="container">
+                  <div class="name">
+                    RM1200x Shift with Premium Sleeved Type-5 Pro Cables Kit -
+                    Black
+                  </div>
+                  <div class="row">
+                    <div class="row__text">Price:</div>
+                    <div class="row__text">Rs: 51,482.49</div>
+                  </div>
+                  <div class="row">
+                    <div class="row__text">Availability:</div>
+                    <div class="row__text">In Stock</div>
+                  </div>
+                  <a href="#">View</a>
                 </div>
               </div>
             </div>
-            <div class="component">
-              <h3>GPU</h3>
-              <div class="component__content">
-                <div class="basis">
-                  <label>Brand</label>
-                  <select name="gpu-brand">
-                    <option value="">Select</option>
-                    <option value="nvidia">Nvidia</option>
-                    <option value="amd">AMD</option>
-                  </select>
-                </div>
-                <div class="basis">
-                  <label>Graphic card</label>
-                  <select name="gpu-graphic-card">
-                    <option value="">Select</option>
-                  </select>
-                </div>
-                <div class="quantity basis">
-                  <label>Quantity</label>
-                  <select name="gpu-quantity">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                </div>
+          </aside>
+        </div>
+      </main>
+      <footer class="footer">
+        <div class="footer__content _shell">
+          <div class="logo">Build<br />Your<br />Custom<br />PC</div>
+          <div class="container">
+            <div class="row">
+              <div class="item">
+                <h5>Get in Touch</h5>
+                <a href="">About</a>
+                <a href="">Contact</a>
+              </div>
+              <div class="item">
+                <h5>© 2024 — Copyright</h5>
               </div>
             </div>
-            <div class="component">
-              <h3>Motherboard</h3>
-              <div class="component__content">
-                <div class="basis">
-                  <label>Form Factor</label>
-                  <select name="motherboard-form-factor">
-                    <option value="">Select</option>
-                    <option value="ATX">ATX</option>
-                    <option value="Micro ATX">Micro ATX</option>
-                    <option value="Mini-ITX">Mini-ITX</option>
-                    <option value="Thin Mini-ITX">Thin Mini-ITX</option>
-                    <option value="SSI CEB">SSI CEB</option>
-                    <option value="SSI EEB">SSI EEB</option>
-                  </select>
-                </div>
+            <div class="row">
+              <div class="item">
+                <h5>Contact US</h5>
+                <div>+1 000 000 000</div>
+                <div>Contact@thefzami.com</div>
+              </div>
+              <div class="item-images">
+                <img src="/images/socials/Dribbble Black.svg" alt="" />
+                <img src="/images/socials/Insta Black.svg" alt="" />
+                <img src="/images/socials/Pinterest Black.svg" alt="" />
+                <img src="/images/socials/Tele Black.svg" alt="" />
               </div>
             </div>
-            <div class="component">
-              <h3>RAM</h3>
-              <div class="component__content">
-                <div class="basis">
-                  <label>Memory module</label>
-                  <select name="ram-memory-module">
-                    <option value="">Select</option>
-                    <option value="2GB DDR3">2GB DDR3</option>
-                    <option value="4GB DDR3">4GB DDR3</option>
-                    <option value="8GB DDR3">8GB DDR3</option>
-                    <option value="32GB DDR3">32GB DDR3</option>
-                    <option value="4GB DDR4">4GB DDR4</option>
-                    <option value="8GB DDR4">8GB DDR4</option>
-                    <option value="16GB DDR4">16GB DDR4</option>
-                    <option value="32GB DDR4">32GB DDR4</option>
-                  </select>
-                </div>
-                <div class="quantity basis">
-                  <label>Quantity</label>
-                  <select name="RAM-quantity">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="component">
-              <h3>SSD</h3>
-              <div class="component__content">
-                <div class="basis">
-                  <label>Capacity & Model</label>
-                  <select name="ssd-model">
-                    <option value="">Select</option>
-                    <option value="0">Not installed</option>
-                    <option value="128GB">128GB</option>
-                    <option value="512GB">512GB</option>
-                    <option value="1TB">1TB</option>
-                    <option value="2TB">2TB</option>
-                    <option value="4TB">4TB</option>
-                  </select>
-                </div>
-                <div class="quantity basis">
-                  <label>Quantity</label>
-                  <select name="SSD-quantity">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="component">
-              <h3>HDD</h3>
-              <div class="component__content">
-                <div class="basis">
-                  <label>Capacity & Model</label>
-                  <select name="hdd-model">
-                    <option value="">Select</option>
-                    <option value="0">Not installed</option>
-                    <option value="500GB">500GB</option>
-                    <option value="1TB">1TB</option>
-                    <option value="2TB">2TB</option>
-                    <option value="4TB">4TB</option>
-                    <option value="8TB">8TB</option>
-                  </select>
-                </div>
-                <div class="quantity basis">
-                  <label>Quantity</label>
-                  <select name="HDD-quantity">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="component">
-              <h3>Optical Drive</h3>
-              <div class="component__content">
-                <div class="basis">
-                  <label>Type</label>
-                  <select name="optical-drive-type">
-                    <option value="">Select</option>
-                    <option value="not installed">Not installed</option>
-                    <option value="CD">CD</option>
-                    <option value="DVD">DVD</option>
-                    <option value="BluRay">BluRay</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <button class="psu-button">Get PSU Recommendation</button>
-            <div class="psu-field"></div>
           </div>
-        </main>
-        <aside class="calc__result">
-          <h2>Your PC wattage is</h2>
-          <div class="calc__result-value">
-            <span id="total-watts" class="value">0</span> WATTS
-          </div>
-        </aside>
-      </div>
+        </div>
+      </footer>
     </div>
-    <script src="script.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/watcalc.js"></script>
   </body>
 </html>
